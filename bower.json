@@ -1,0 +1,28 @@
+{
+  "name": "streams",
+  "version": "0.0.1",
+  "authors": [
+    "jonki <jonki.web@gmail.com>"
+  ],
+  "description": "Funny way to save data",
+  "main": "streams.js",
+  "keywords": [
+    "data",
+    "save",
+    "streams",
+    "memory"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "react": "~0.8.0",
+    "requirejs": "~2.1.10"
+  }
+}
