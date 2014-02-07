@@ -58,7 +58,7 @@ define(["react"], function(React){
     adjustSize: function () {
       var area = this.getDOMNode();
       area.style.height = "1px";
-      area.style.height = area.scrollHeight+"px";
+      area.style.height = 26+area.scrollHeight+"px";
     },
     componentDidMount: function () {
       this.adjustSize();

@@ -20,3 +20,7 @@ Typography first, typography in the middle, typography last. Each design element
 ## Behavior goals
 
 - allow user to control whole app with keyboard. First steps were made
+
+## Live version
+
+to be seen: http://jonki.github.io/streams.html
