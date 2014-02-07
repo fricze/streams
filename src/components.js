@@ -1,4 +1,4 @@
-define(["react"], function(React){
+define(["store", "react"], function(store, React){
 
   var exports = {};
 
@@ -17,7 +17,7 @@ define(["react"], function(React){
     handleChange: function(event) {
       this.setState({
         text: event.target.value,
-        date: new Date().toLocaleTimeString()
+        date: new Date()
       })
     }
   }
@@ -83,7 +83,7 @@ define(["react"], function(React){
 
   var BoxDate = React.createClass({
     render: function () {
-      return React.DOM.time({className: "box-date"}, this.props.date)
+      return React.DOM.time({className: "box-date"}, this.props.date.toLocaleDateString(), this.props.date.toLocaleTimeString())
     }
   })
 
@@ -94,7 +94,9 @@ define(["react"], function(React){
         contentState: "Form",
         nameFocus: function () { this.getDOMNode().focus() },
         contentFocus: function () {},
-        date: this.props.date
+        date: this.props.date,
+        name: this.props.name,
+        content: this.props.content
       }
     },
     blur: function (keyword, val, time) {
@@ -112,7 +114,7 @@ define(["react"], function(React){
     },
     render: function () {
       var name = BoxName[this.state.nameState]({
-        text: this.state.name, 
+        text: this.state.name,
         doFocus: this.state.nameFocus,
         date: this.state.date,
         blur: (function (val, time) { this.blur("name", val, time) }).bind(this),
@@ -137,6 +139,22 @@ define(["react"], function(React){
     }
   })
 
+  var SaveButton = React.createClass({
+    render: function () {
+      return React.DOM.button({className: "save-button", onClick: this.props.click}, "save")
+    }
+  })
+
+  var StreamNav = React.createClass({
+    render: function () {
+      return React.DOM.nav({className: "stream-nav"},
+        this.props.newBoxButton,
+        this.props.saveButton
+      )
+    }
+  })
+
+
   var LastEditLabel = React.createClass({
     render: function () {
       return React.DOM.span({className: "last-edit"}, "last edit:")
@@ -146,24 +164,47 @@ define(["react"], function(React){
   var Stream = React.createClass({
     getDefaultProps: function () {
       return {
-        boxes: []
+        boxes: store.get("lastSnapshot").map(function (box) {
+          return Box({
+            date: new Date(box.date),
+            name: box.name,
+            content: box.content
+          })
+        })
       }
     },
     newBox: function () {
-      var date = new Date().toLocaleTimeString();
+      var date = new Date();
       var box = Box({date: date});
       this.props.boxes.push(box);
       this.setProps({
         boxes: this.props.boxes
       })
     },
+    saveSnapshot: function () {
+      var boxes = this.props.boxes;
+      var snapshot = [];
+      boxes.forEach(function (box) {
+        var boxState = box.state;
+        snapshot.push({
+          name: boxState.name,
+          content: boxState.content,
+          date: boxState.date.toString()
+        })
+      })
+      store.set("lastSnapshot", snapshot);
+      console.log(store.get("lastSnapshot"))
+    },
     render: function () {
       var boxes = this.props.boxes;
       return React.DOM.section(
         {className: "stream", onDoubleClick: this.newBox}, 
         LastEditLabel({}),
-        boxes, 
-        NewBoxButton({click: (function () { this.newBox() }).bind(this)})
+        boxes,
+        StreamNav({
+          saveButton: SaveButton({click: this.saveSnapshot}),
+          newBoxButton: NewBoxButton({click: (function () { this.newBox() }).bind(this)})
+        })
       )
     }
   })

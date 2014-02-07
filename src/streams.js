@@ -2,7 +2,8 @@ requirejs.config({
     baseUrl: './src',
     paths: {
         react: '../bower_components/react/react',
-        components: './components'
+        store: '../bower_components/store.js/store',
+        components: './components',
     }
 });
 

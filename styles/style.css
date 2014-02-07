@@ -29,12 +29,17 @@ body {
   left: -100px;
 }
 
+.box-date span {
+  display: block;
+}
+
 .box-name, .box-name-form {
   font-weight: 700;
 }
 
 .box-content {  
   min-height: 1.5rem;
+  padding-bottom: 26px;
   width: 36rem;
   background: #fff;
   white-space: pre-wrap;
@@ -52,15 +57,20 @@ textarea, input {
   width: 36rem;
 }
 
-.new-box-button {
+.stream-nav {
   float: right;
+}
+
+button {
   font-size: 1rem;
   outline: none;
   border: none;
-  width: 2.6rem;
+  /*width: 2.6rem;*/
+  padding: .2rem 1rem .28rem 1rem;
+  margin-right: .5rem;
 }
 
-.new-box-button:focus {
+button:focus {
   box-shadow: 0 0 3px rgb(180, 150, 200);
 }
 
