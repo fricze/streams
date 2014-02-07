@@ -10,7 +10,7 @@ Currently, it’s very first prototype
 
 - base on React
 - make it modular and composable – as many little components as reasonable
-- if-less code – currently, one if expression used in whole code (with objective to delete it later, somehow)
+- if-less code – currently two ifs used in whole code (with objective to delete later, somehow)
 - make it functional – rely on dataflow, passing values through functions, functions through functions, avoid if’s (look up)
 
 ## Design goals
